@@ -13,7 +13,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-asyncio>=0.23"]
 # chains behind JS anti-bot need a real browser; after install run: python -m camoufox fetch
-browser = ["camoufox>=0.5"]  # pyaterochka, perekrestok, dixy
+browser = ["camoufox>=0.5"]  # pyaterochka, perekrestok, dixy, krasnoeibeloe
 
 [project.scripts]
 market-screening = "market_screening.server:main"

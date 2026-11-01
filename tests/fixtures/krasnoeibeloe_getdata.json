@@ -1,0 +1,46 @@
+{
+ "4699272": {
+  "amount": 40,
+  "amountMore1": true,
+  "avgAmount": 25,
+  "coefficient": null,
+  "is_yellow": true,
+  "price": 0,
+  "priceByRegion": 0,
+  "product_id": "4699272",
+  "shopAmount": 32,
+  "shopNum": "29480",
+  "storeAmount": 0,
+  "xml_id": "40284"
+ },
+ "3325567": {
+  "amount": 105,
+  "amountMore1": true,
+  "avgAmount": 119,
+  "coefficient": null,
+  "is_yellow": true,
+  "price": 54.99,
+  "priceByRegion": 44.89,
+  "priceFile": false,
+  "product_id": "3325567",
+  "shopAmount": 84,
+  "shopNum": "29480",
+  "storeAmount": 0,
+  "xml_id": "25114"
+ },
+ "4694555": {
+  "amount": 20,
+  "amountMore1": true,
+  "avgAmount": 31,
+  "coefficient": null,
+  "is_yellow": true,
+  "price": 79.99,
+  "priceByRegion": 79.99,
+  "priceFile": false,
+  "product_id": "4694555",
+  "shopAmount": 16,
+  "shopNum": "29480",
+  "storeAmount": 0,
+  "xml_id": "40305"
+ }
+}

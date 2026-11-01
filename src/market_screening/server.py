@@ -83,14 +83,14 @@ async def search_products(query: str, stores: list[str] | None = None, limit: in
     return dict(results)
 
 
-STORE_LOOKUP_CHAINS = ("pyaterochka", "dixy")
+STORE_LOOKUP_CHAINS = ("pyaterochka", "dixy", "krasnoeibeloe")
 
 
 @mcp.tool()
 async def find_store(chain: str, address: str) -> dict:
     """Find the store of a chain nearest to / serving an address.
 
-    chain: "pyaterochka" or "dixy" (others have no per-store prices or no lookup:
+    chain: "pyaterochka", "dixy" or "krasnoeibeloe" (Moscow only) (others have no per-store prices or no lookup:
     vkusvill, perekrestok — city-level prices; fixprice — store_code is the city id, Moscow = 3;
     magnit — take storeCode from magnit.ru DevTools).
     Returns {"store_code", "address", ...}: put store_code into config.toml.

@@ -15,6 +15,7 @@ the cheapest plan: everything in one store, or split across 2–3 stores.
 | Pyaterochka | headless browser | per store, `find_store` by address | stock, "от N шт" promos |
 | Perekrestok | headless browser | city-level (Moscow) | qualitative stock |
 | Dixy | headless browser | per store, `find_store` by address | stock |
+| Krasnoe&Beloe | headless browser | per store (Moscow), `find_store` | mostly drinks; items without a published price are skipped |
 
 Browser-based chains need the optional extra (one shared Camoufox session per chain,
 ~10 s warm-up on first use, then <1 s per search):
@@ -28,7 +29,7 @@ Browser-based chains need the optional extra (one shared Camoufox session per ch
 | Tool | What it does |
 |---|---|
 | `list_stores` | Stores from your `config.toml` |
-| `find_store(chain, address)` | Nearest Pyaterochka / Dixy store code for an address |
+| `find_store(chain, address)` | Nearest Pyaterochka / Dixy / Krasnoe&Beloe store code for an address |
 | `search_products(query, stores?, limit?)` | Products with price, promo/old price, price per kg/l, stock, card-only badges |
 | `optimize_basket(basket, max_stores, extra_store_cost)` | Exact totals: best single store vs best split, saving |
 
