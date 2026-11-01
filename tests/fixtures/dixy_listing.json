@@ -1,0 +1,86 @@
+[
+ {
+  "pagenData": {
+   "element_count": "399",
+   "page": 1
+  },
+  "cards": [
+   {
+    "id": "210289",
+    "title": "Молоко Домик в деревне 3,2% 950мл ультрапастеризованное",
+    "weight": "1000 гр",
+    "url": "/product/moloko-domik-v-derevne-32-950ml-ultrapasterizovannoe-2000066819/",
+    "symbol": "шт",
+    "realSymbol": "шт",
+    "ratio": 1,
+    "amount": 35,
+    "price": "129.<span>99</span><span class='rub'>руб.</span>",
+    "priceSimple": "129.99",
+    "oldPriceSimple": "129.99",
+    "crossPrice": false,
+    "hidePrice": false,
+    "variant": "штучный",
+    "store": {
+     "storeAddress": "100000, Москва г, Примерная ул, д.1"
+    }
+   },
+   {
+    "id": "211897",
+    "title": "Молоко Село Зеленое 3,2% 950мл ультрапастеризованное",
+    "weight": "950 гр",
+    "url": "/product/moloko-selo-zelenoe-32-950ml-ultrapasterizovannoe-2000238271/",
+    "symbol": "шт",
+    "realSymbol": "шт",
+    "ratio": 1,
+    "amount": 79,
+    "price": "99.<span>99</span><span class='rub'>руб.</span>",
+    "priceSimple": "99.99",
+    "oldPriceSimple": "109.99",
+    "crossPrice": true,
+    "hidePrice": false,
+    "variant": "штучный",
+    "store": {
+     "storeAddress": "100000, Москва г, Примерная ул, д.1"
+    }
+   },
+   {
+    "id": "209399",
+    "title": "Бананы спелые",
+    "weight": "1000 гр",
+    "url": "/product/banany-spelye-10e0074360/",
+    "symbol": "кг",
+    "realSymbol": "кг",
+    "ratio": 0.7,
+    "amount": 154.8,
+    "price": "129.<span>99</span><span class='rub'>руб.</span>",
+    "priceSimple": "129.99",
+    "oldPriceSimple": "129.99",
+    "crossPrice": false,
+    "hidePrice": false,
+    "variant": "весовой",
+    "store": {
+     "storeAddress": "100000, Москва г, Примерная ул, д.1"
+    }
+   },
+   {
+    "id": "209587",
+    "title": "Сыр Хуторок Российский 50% фассованный",
+    "weight": "1000 гр",
+    "url": "/product/syr-khutorok-rossiyskiy-50-fassovannyy-2000570611/",
+    "symbol": "кг",
+    "realSymbol": "кг",
+    "ratio": 0.25,
+    "amount": 2.16,
+    "price": "799.<span>90</span><span class='rub'>руб.</span>",
+    "priceSimple": "799.90",
+    "oldPriceSimple": "1 119.90",
+    "crossPrice": true,
+    "hidePrice": false,
+    "variant": "весовой",
+    "store": {
+     "storeAddress": "100000, Москва г, Примерная ул, д.1"
+    }
+   }
+  ]
+ }
+]

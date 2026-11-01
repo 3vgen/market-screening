@@ -10,6 +10,7 @@ from pathlib import Path
 from mcp.server.mcpserver import MCPServer
 
 from .adapters import ADAPTERS, Adapter
+from .geo import geocode
 from .models import Store
 from .optimizer import optimize
 
@@ -82,17 +83,27 @@ async def search_products(query: str, stores: list[str] | None = None, limit: in
     return dict(results)
 
 
+STORE_LOOKUP_CHAINS = ("pyaterochka", "dixy")
+
+
 @mcp.tool()
 async def find_store(chain: str, address: str) -> dict:
-    """Find the store of a chain that serves an address (currently: chain="pyaterochka").
+    """Find the store of a chain nearest to / serving an address.
 
-    Returns the store code to put into config.toml as store_code, plus its address.
+    chain: "pyaterochka" or "dixy" (others have no per-store prices or no lookup:
+    vkusvill, perekrestok — city-level prices; fixprice — store_code is the city id, Moscow = 3;
+    magnit — take storeCode from magnit.ru DevTools).
+    Returns {"store_code", "address", ...}: put store_code into config.toml.
     """
-    adapter = _adapter(chain) if chain in ADAPTERS else None
-    if adapter is None or not hasattr(adapter, "store_by_address"):
-        return {"error": f"store lookup is not supported for {chain!r}"}
+    if chain not in STORE_LOOKUP_CHAINS:
+        return {"error": f"store lookup is not supported for {chain!r}; see the tool description"}
+    adapter = _adapter(chain)
     try:
-        return await adapter.store_by_address(address)
+        if chain == "pyaterochka":
+            raw = await adapter.store_by_address(address)
+            return {"store_code": raw.get("sap_code"), "address": raw.get("shop_address"), **raw}
+        point = await geocode(address)
+        return {**point, **await adapter.store_near(point["lon"], point["lat"])}
     except Exception as e:
         return {"error": f"{type(e).__name__}: {e}"}
 

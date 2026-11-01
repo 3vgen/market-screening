@@ -6,7 +6,7 @@ headers the site's own JS sends to its catalog API, and then call that API with
 `fetch()` from inside the page (~0.5 s per search). Approach borrowed from
 https://github.com/Open-Inflation/pyaterochka_api.
 
-Optional dependency: `pip install market-screening[pyaterochka] && python -m camoufox fetch`.
+Optional dependency: `pip install market-screening[browser] && python -m camoufox fetch`.
 Prices are in rubles (strings in the API).
 """
 
@@ -106,7 +106,7 @@ class PyaterochkaAdapter(Adapter):
         except ImportError as e:  # optional dependency
             raise RuntimeError(
                 "Pyaterochka needs the browser extra: "
-                "pip install 'market-screening[pyaterochka]' && python -m camoufox fetch"
+                "pip install 'market-screening[browser]' && python -m camoufox fetch"
             ) from e
 
         self._camoufox = AsyncCamoufox(headless=True, i_know_what_im_doing=True)

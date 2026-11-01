@@ -1,0 +1,131 @@
+{
+ "content": {
+  "items": [
+   {
+    "id": 29508,
+    "title": "Молоко Домик в деревне стерилизованное 3.2% , 950г",
+    "masterData": {
+     "slug": "moloko-domik-v-derevne-sterilizovannoe-3-2-950g",
+     "plu": "2059346",
+     "unit": 1,
+     "unitName": "шт",
+     "quantum": 1000,
+     "weight": 950,
+     "volume": 925
+    },
+    "catalogPrimaryCategory": {
+     "id": 114
+    },
+    "priceTag": {
+     "price": 10499,
+     "grossPrice": null,
+     "labels": [],
+     "unitPriceWithConditionalDiscount": null,
+     "discountCondition": null
+    },
+    "balanceState": "many"
+   },
+   {
+    "id": 65588,
+    "title": "Молоко Простоквашино пастеризованное 2.5% БЗМЖ, 930мл",
+    "masterData": {
+     "slug": "moloko-prostokvasino-pasterizovannoe-2-5-bzmz-930ml",
+     "plu": "2093081",
+     "unit": 1,
+     "unitName": "шт",
+     "quantum": 1000,
+     "weight": 958,
+     "volume": 930
+    },
+    "catalogPrimaryCategory": {
+     "id": 114
+    },
+    "priceTag": {
+     "price": 9999,
+     "grossPrice": 11999,
+     "labels": [
+      {
+       "type": "yellow",
+       "text": "-16%"
+      }
+     ],
+     "unitPriceWithConditionalDiscount": null,
+     "discountCondition": null
+    },
+    "balanceState": "many"
+   },
+   {
+    "id": 32215,
+    "title": "Бананы фасованные",
+    "masterData": {
+     "slug": "banany-fasovannye",
+     "plu": "3639749",
+     "unit": 2,
+     "unitName": "кг",
+     "quantum": 1000,
+     "weight": null,
+     "volume": null
+    },
+    "catalogPrimaryCategory": {
+     "id": 1729
+    },
+    "priceTag": {
+     "price": 14999,
+     "grossPrice": null,
+     "labels": [],
+     "unitPriceWithConditionalDiscount": null,
+     "discountCondition": null
+    },
+    "balanceState": "many"
+   },
+   {
+    "id": 45211,
+    "title": "Сыр Российский молодой 50% Зелёная Линия",
+    "masterData": {
+     "slug": "syr-rossijskij-molodoj-50-zelenaa-linia",
+     "plu": "3668882",
+     "unit": 2,
+     "unitName": "кг",
+     "quantum": 200,
+     "weight": null,
+     "volume": null
+    },
+    "catalogPrimaryCategory": {
+     "id": 122
+    },
+    "priceTag": {
+     "price": 99399,
+     "grossPrice": null,
+     "labels": [],
+     "unitPriceWithConditionalDiscount": null,
+     "discountCondition": null
+    },
+    "balanceState": "many"
+   },
+   {
+    "id": 1,
+    "title": "Кефир Перекрёсток 2.5%",
+    "masterData": {
+     "slug": "kefir",
+     "plu": "9000001",
+     "unit": 1,
+     "unitName": "шт",
+     "quantum": 1000,
+     "weight": null,
+     "volume": 900
+    },
+    "catalogPrimaryCategory": {
+     "id": 114
+    },
+    "priceTag": {
+     "price": 8999,
+     "grossPrice": null,
+     "labels": [],
+     "unitPriceWithConditionalDiscount": null,
+     "discountCondition": null
+    },
+    "balanceState": "none"
+   }
+  ]
+ }
+}

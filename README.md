@@ -7,18 +7,28 @@ the cheapest plan: everything in one store, or split across 2–3 stores.
 
 > Status: early prototype.
 
-| Chain | Status | Source | Notes |
+| Chain | How | Store selection | Notes |
 |---|---|---|---|
-| Magnit | ✅ | website JSON API | per-store prices, stock, promos, card-only badges |
-| VkusVill | ✅ | server-rendered search page | default-region (Moscow) prices, no per-store stock |
-| Dixy | ❌ | — | listing endpoint behind WAF (403) |
-| Pyaterochka, Perekrestok, Lenta | ❌ | — | JS anti-bot challenge |
+| Magnit | HTTP, site JSON API | per store (`storeCode` from DevTools) | stock, promos, card-only badges |
+| VkusVill | HTTP, server-rendered HTML | city-level (Moscow) | no stock |
+| Fix Price | HTTP, site JSON API | city id (Moscow = 3) | "спец цена" badge |
+| Pyaterochka | headless browser | per store, `find_store` by address | stock, "от N шт" promos |
+| Perekrestok | headless browser | city-level (Moscow) | qualitative stock |
+| Dixy | headless browser | per store, `find_store` by address | stock |
+
+Browser-based chains need the optional extra (one shared Camoufox session per chain,
+~10 s warm-up on first use, then <1 s per search):
+
+```bash
+.venv/bin/pip install -e ".[browser]" && .venv/bin/python -m camoufox fetch
+```
 
 ## How it works
 
 | Tool | What it does |
 |---|---|
 | `list_stores` | Stores from your `config.toml` |
+| `find_store(chain, address)` | Nearest Pyaterochka / Dixy store code for an address |
 | `search_products(query, stores?, limit?)` | Products with price, promo/old price, price per kg/l, stock, card-only badges |
 | `optimize_basket(basket, max_stores, extra_store_cost)` | Exact totals: best single store vs best split, saving |
 

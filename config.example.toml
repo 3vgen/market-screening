@@ -14,3 +14,24 @@ name = "Магнит у дома"
 chain = "vkusvill"
 store_code = "moscow"
 name = "ВкусВилл"
+
+[[stores]]
+chain = "fixprice"
+store_code = "3"          # Fix Price city id, Moscow = 3
+name = "Fix Price"
+
+# Browser-based chains (pip install -e ".[browser]"). Use the find_store tool to get codes.
+[[stores]]
+chain = "pyaterochka"
+store_code = "auto"       # or a SAP code like "Y000"; auto = picked by your IP
+name = "Пятёрочка"
+
+[[stores]]
+chain = "perekrestok"
+store_code = "moscow"     # city-level prices; just a label
+name = "Перекрёсток"
+
+[[stores]]
+chain = "dixy"
+store_code = "0000"       # Dixy store id
+name = "Дикси"
