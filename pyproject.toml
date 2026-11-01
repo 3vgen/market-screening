@@ -12,6 +12,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+# 5ka.ru needs a real browser session; after install run: python -m camoufox fetch
+pyaterochka = ["camoufox>=0.5"]
 
 [project.scripts]
 market-screening = "market_screening.server:main"

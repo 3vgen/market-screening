@@ -83,6 +83,21 @@ async def search_products(query: str, stores: list[str] | None = None, limit: in
 
 
 @mcp.tool()
+async def find_store(chain: str, address: str) -> dict:
+    """Find the store of a chain that serves an address (currently: chain="pyaterochka").
+
+    Returns the store code to put into config.toml as store_code, plus its address.
+    """
+    adapter = _adapter(chain) if chain in ADAPTERS else None
+    if adapter is None or not hasattr(adapter, "store_by_address"):
+        return {"error": f"store lookup is not supported for {chain!r}"}
+    try:
+        return await adapter.store_by_address(address)
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+
+
+@mcp.tool()
 def optimize_basket(basket: list[dict], max_stores: int = 2, extra_store_cost: float = 0.0) -> dict:
     """Compute the cheapest way to buy the basket.
 
