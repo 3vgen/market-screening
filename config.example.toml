@@ -8,3 +8,9 @@
 chain = "magnit"
 store_code = "000000"
 name = "Магнит у дома"
+
+# VkusVill doesn't select a store in search; store_code is just a label.
+[[stores]]
+chain = "vkusvill"
+store_code = "moscow"
+name = "ВкусВилл"

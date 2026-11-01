@@ -5,7 +5,14 @@ Russian retail chains. You give the assistant a shopping list; it searches the p
 in the stores you shop at, matches comparable items (by price per kg / l), and computes
 the cheapest plan: everything in one store, or split across 2–3 stores.
 
-> Status: early prototype. Supported chains: **Magnit**. Dixy and VkusVill are being investigated.
+> Status: early prototype.
+
+| Chain | Status | Source | Notes |
+|---|---|---|---|
+| Magnit | ✅ | website JSON API | per-store prices, stock, promos, card-only badges |
+| VkusVill | ✅ | server-rendered search page | default-region (Moscow) prices, no per-store stock |
+| Dixy | ❌ | — | listing endpoint behind WAF (403) |
+| Pyaterochka, Perekrestok, Lenta | ❌ | — | JS anti-bot challenge |
 
 ## How it works
 

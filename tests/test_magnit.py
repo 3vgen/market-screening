@@ -41,3 +41,10 @@ def test_weighted_item_uses_api_unit_price():
     assert p.is_weighted
     assert p.price == 160.86
     assert (p.unit_price, p.unit) == (114.9, "kg")
+
+
+def test_loyalty_flag_without_old_price_is_not_a_discount():
+    item = {**WEIGHTED, "promotion": {"isPromotion": True, "oldPrice": None, "endDate": "2026-11-16"}}
+    p = parse_item(item, STORE)
+    assert not p.is_promo
+    assert p.old_price is None and p.promo_until is None

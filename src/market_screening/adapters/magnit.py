@@ -28,6 +28,10 @@ def parse_item(item: dict, store: Store) -> Product:
     else:
         per_unit = unit_price(price, item["name"])
 
+    # isPromotion is also true for plain loyalty-card prices; only a real old price means a discount
+    old_price = _rub(promo.get("oldPrice"))
+    is_promo = old_price is not None and old_price > price
+
     product_id = str(item.get("productId") or item["id"])
     seo = item.get("seoCode")
     url = f"{BASE}/product/{product_id}-{seo}?shopCode={store.store_code}" if seo else None
@@ -37,9 +41,9 @@ def parse_item(item: dict, store: Store) -> Product:
         product_id=product_id,
         name=item["name"].strip(),
         price=price,
-        old_price=_rub(promo.get("oldPrice")),
-        is_promo=bool(promo.get("isPromotion")),
-        promo_until=promo.get("endDate"),
+        old_price=old_price if is_promo else None,
+        is_promo=is_promo,
+        promo_until=promo.get("endDate") if is_promo else None,
         stock=item.get("quantity"),
         unit_price=per_unit[0] if per_unit else None,
         unit=per_unit[1] if per_unit else None,
