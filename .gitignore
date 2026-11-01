@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+dist/
+build/
+
+# local config: contains your store codes (i.e. your approximate location)
+config.toml
+
+# personal Claude Code settings
+.claude/settings.local.json

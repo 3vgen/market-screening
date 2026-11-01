@@ -1,0 +1,10 @@
+# Copy to config.toml and put the stores you actually shop at.
+# config.toml is gitignored: store codes reveal your approximate location.
+#
+# Magnit store code: open magnit.ru, pick your store in the header, then
+# DevTools -> Network -> goods/search request -> Payload -> storeCode.
+
+[[stores]]
+chain = "magnit"
+store_code = "000000"
+name = "Магнит у дома"
