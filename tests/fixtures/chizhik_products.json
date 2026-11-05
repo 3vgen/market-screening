@@ -1,0 +1,22 @@
+[
+  {"plu": 4309774, "name": "Молоко АМА МАМА для детей с 8 месяцев 3.2% 205мл", "uom": "шт",
+   "prices": {"regular": "34.0", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": null, "price_unit_label": null,
+   "property_clarification": "200 мл", "stock_limit": "37.00", "is_available": true},
+  {"plu": 3490515, "name": "Шоколад Ritter Sport Цельный лесной орех молочный 100г", "uom": "шт",
+   "prices": {"regular": "179.0", "discount": "159.0", "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": "100 г", "price_unit_label": null,
+   "property_clarification": "100 г", "stock_limit": "52.00", "is_available": true},
+  {"plu": 4275231, "name": "Бананы", "uom": "кг",
+   "prices": {"regular": "129.0", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": null, "price_unit_label": null,
+   "property_clarification": "Цена за 1 кг", "stock_limit": "28.67", "is_available": true},
+  {"plu": 4327479, "name": "Сыр FOODFEST Адыгейский мягкий 45%", "uom": "кг",
+   "prices": {"regular": "749.0", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": null, "price_unit_label": null,
+   "property_clarification": "Цена за 1 кг", "stock_limit": "11.66", "is_available": true},
+  {"plu": 6001, "name": "Кефир Простоквашино 1% 930мл", "uom": "шт",
+   "prices": {"regular": "89.99", "discount": null, "cpd_promo_price": "79.99", "markdown": null},
+   "labels": [{"label": "% от 2 шт"}], "package_quantity": null, "price_unit_label": null,
+   "property_clarification": "930 мл", "stock_limit": "0.00", "is_available": false}
+]

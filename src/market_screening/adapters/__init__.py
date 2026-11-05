@@ -1,4 +1,5 @@
 from .base import Adapter
+from .chizhik import ChizhikAdapter
 from .dixy import DixyAdapter
 from .fixprice import FixPriceAdapter
 from .krasnoeibeloe import KrasnoeIBeloeAdapter
@@ -18,12 +19,14 @@ ADAPTERS: dict[str, type[Adapter]] = {
         PerekrestokAdapter,
         DixyAdapter,
         KrasnoeIBeloeAdapter,
+        ChizhikAdapter,
     )
 }
 
 __all__ = [
     "ADAPTERS",
     "Adapter",
+    "ChizhikAdapter",
     "DixyAdapter",
     "FixPriceAdapter",
     "KrasnoeIBeloeAdapter",

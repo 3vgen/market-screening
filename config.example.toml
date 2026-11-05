@@ -35,3 +35,8 @@ name = "Перекрёсток"
 chain = "dixy"
 store_code = "0000"       # Dixy store id
 name = "Дикси"
+
+[[stores]]
+chain = "chizhik"
+store_code = "auto"       # or a shop sap_id like "HBBN"; auto = picked by your IP
+name = "Чижик"
