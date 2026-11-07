@@ -24,6 +24,7 @@ import urllib.parse
 from ..models import Product, Store
 from ..units import parse_size, unit_price
 from .base import Adapter
+from .pyaterochka import _category_keys, is_promo_product  # shared X5 catalog helpers
 
 SITE = "https://chizhik.club"
 APP = "https://app.chizhik.club"
@@ -141,7 +142,7 @@ class ChizhikAdapter(Adapter):
         if cm is not None:
             await cm.__aexit__(None, None, None)
 
-    async def _get_json(self, url: str) -> dict:
+    async def _get_json(self, url: str) -> dict | list:
         async with self._lock:
             for attempt in range(3):
                 await self._ensure_session()
@@ -198,6 +199,40 @@ class ChizhikAdapter(Adapter):
         )
         data = await self._get_json(url)
         return [parse_product(p, store) for p in data.get("products") or []]
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        # No "list discounts" endpoint: walk the category tree (alias-keyed) and
+        # keep products whose prices carry a real discount / offer.
+        code = store.store_code
+        if code == "auto":
+            code = await self.selected_store_code()
+        tree = await self._get_json(
+            f"{API}/catalog/v3/stores/{code}/categories"
+            f"?mode=delivery&include_subcategories=1&include_restrict=true"
+        )
+        nodes = tree if isinstance(tree, list) else (tree.get("categories") or [])
+        cat_keys = _category_keys(nodes, "alias", [])
+        products: list[Product] = []
+        seen: set[str] = set()
+        for cat_key in cat_keys[:60]:
+            if len(products) >= limit:
+                break
+            data = await self._get_json(
+                f"{API}/catalog/v2/stores/{code}/categories/{cat_key}/products"
+                f"?mode=delivery&include_restrict=true&limit=100"
+            )
+            items = data if isinstance(data, list) else (data.get("products") or [])
+            for p in items:
+                if not is_promo_product(p):
+                    continue
+                parsed = parse_product(p, store)
+                if parsed.product_id in seen:
+                    continue
+                seen.add(parsed.product_id)
+                products.append(parsed)
+                if len(products) >= limit:
+                    break
+        return products[:limit]
 
     async def aclose(self) -> None:
         await self._reset()

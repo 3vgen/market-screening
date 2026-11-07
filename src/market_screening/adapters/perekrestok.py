@@ -173,6 +173,31 @@ class PerekrestokAdapter(Adapter):
         items = (data.get("content") or {}).get("items") or []
         return [parse_product(it, store) for it in items]
 
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        # `filter.onlyDiscount` is the "Скидки" section of the catalog; sort by
+        # discount descending so the biggest discounts come first.
+        products: list[Product] = []
+        page = 1
+        while len(products) < limit and page <= 50:
+            body = {
+                "page": page,
+                "perPage": min(48, max(1, limit - len(products))),
+                "filter": {"onlyDiscount": True},
+                "withBestProductReviews": False,
+                "orderBy": "discount",
+                "orderDirection": "desc",
+            }
+            data = await self._call("/catalog/product/feed", body)
+            content = data.get("content") or {}
+            items = content.get("items") or []
+            if not items:
+                break
+            products.extend(parse_product(it, store) for it in items)
+            if not (content.get("paginator") or {}).get("nextPageExists"):
+                break
+            page += 1
+        return products[:limit]
+
     async def aclose(self) -> None:
         await self._reset()
         await super().aclose()

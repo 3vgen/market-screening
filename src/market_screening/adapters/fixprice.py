@@ -91,3 +91,36 @@ class FixPriceAdapter(Adapter):
                 self._xkey = resp.headers["x-key"]
             return [parse_product(p, store) for p in resp.json().get("products") or []]
         raise RuntimeError("fix-price search failed")
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        # "спец цена по карте" is a category (slug spets-tsena-po-karte); the
+        # catalog-listing endpoint returns its items as a bare JSON array.
+        city = store.store_code if store.store_code.isdigit() else MOSCOW_CITY_ID
+        for attempt in range(2):
+            await self._ensure_key(city)
+            resp = await self._client.post(
+                f"{API}/product/filter",
+                params={"page": 1, "limit": limit, "sort": "sold"},
+                json={"category": "spets-tsena-po-karte", "searchText": "",
+                      "filter": {"brand": [], "price": [], "isDividedPrice": False}},
+                headers=self._headers(city),
+            )
+            if resp.status_code in (400, 401, 403) and attempt == 0:
+                self._xkey = None  # token expired or rejected: get a fresh one
+                continue
+            resp.raise_for_status()
+            if resp.headers.get("x-key"):
+                self._xkey = resp.headers["x-key"]
+            products = []
+            for p in resp.json():
+                prod = parse_product(p, store)
+                special = _f((p.get("specialPrice") or {}).get("price"))
+                regular = _f(p.get("price"))
+                if special is not None and regular is not None and special < regular:
+                    # surface the card price and pre-discount price for the promos list
+                    prod.price = special
+                    prod.old_price = regular
+                    prod.is_promo = True
+                products.append(prod)
+            return products
+        raise RuntimeError("fix-price promos failed")

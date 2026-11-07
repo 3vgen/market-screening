@@ -37,5 +37,18 @@ class Adapter(ABC):
     @abstractmethod
     async def _search(self, store: Store, query: str, limit: int) -> list[Product]: ...
 
+    async def promos(self, store: Store, limit: int = 30) -> list[Product]:
+        """Current discounted items in one store, most attractive first."""
+        key = ("promos", store.store_code, limit)
+        hit = self._cache.get(key)
+        if hit and time.monotonic() - hit[0] < self.cache_ttl:
+            return hit[1]
+        products = await self._promos(store, limit)
+        self._cache[key] = (time.monotonic(), products)
+        return products
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        raise NotImplementedError(f"{self.chain} has no promo listing")
+
     async def aclose(self) -> None:
         await self._client.aclose()

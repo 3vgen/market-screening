@@ -56,6 +56,20 @@ def listing_url(query: str, per_page: int = 30) -> str:
     )
 
 
+def promos_url(per_page: int = 30, page: int = 1) -> str:
+    # sid=839 is the "Скидки по карте" section; same listing endpoint as search.
+    return (
+        f"/ajax/listing-json.php?block=product-list&sid=839&perPage={per_page}&page={page}"
+        f"&searchQuery=&getFullData&gl_filter=&useTracking=true&collect_stat"
+    )
+
+
+def _last_page(data: list | dict) -> bool:
+    blocks = data if isinstance(data, list) else [data]
+    pagen = (blocks[0].get("pagenData") or {}) if blocks else {}
+    return str(pagen.get("isLastPage", "")).lower() in ("true", "1", "y", "yes")
+
+
 def parse_card(card: dict, store: Store) -> Product | None:
     price = _f(card.get("priceSimple"))
     title = (card.get("title") or "").strip()
@@ -225,6 +239,27 @@ class DixyAdapter(Adapter):
                 if self._current_store == store.store_code:
                     break  # session survived the call, so the listing is for our store
         return parse_listing(json.loads(body), store)[:limit]
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        products: list[Product] = []
+        page = 1
+        while len(products) < limit and page <= 100:
+            async with self._lock:
+                for _ in range(2):
+                    await self._ensure_session()
+                    await self._select_store(store.store_code)
+                    body = await self._call(promos_url(page=page))
+                    if self._current_store == store.store_code:
+                        break
+            data = json.loads(body)
+            batch = parse_listing(data, store)
+            if not batch:
+                break
+            products.extend(batch)
+            if _last_page(data):
+                break
+            page += 1
+        return [p for p in products if p.is_promo][:limit]
 
     async def aclose(self) -> None:
         await self._reset()

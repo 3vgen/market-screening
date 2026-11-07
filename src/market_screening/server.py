@@ -83,6 +83,35 @@ async def search_products(query: str, stores: list[str] | None = None, limit: in
     return dict(results)
 
 
+@mcp.tool()
+async def promos(stores: list[str] | None = None, limit: int = 30) -> dict:
+    """List current discounts / promotions in the configured stores, biggest discounts first.
+
+    stores: optional list of store keys from list_stores (default: all).
+    limit: max promo items per store.
+    Returns per store a list of products: price, old_price (pre-discount) and
+    discount_pct, plus unit_price per kg/l, stock, badges, url. A chain with no
+    promo concept (or that failed) appears as an "error" entry.
+    """
+    targets = [s for s in load_stores() if stores is None or s.key in stores]
+
+    async def one(store: Store):
+        try:
+            found = await _adapter(store.chain).promos(store, limit)
+        except Exception as e:  # one broken chain must not break the whole answer
+            return store.key, {"error": f"{type(e).__name__}: {e}"}
+        items = []
+        for p in found:
+            d = p.to_dict()
+            if p.old_price and p.old_price > p.price:
+                d["discount_pct"] = round((p.old_price - p.price) / p.old_price * 100)
+            items.append(d)
+        return store.key, items
+
+    results = await asyncio.gather(*(one(s) for s in targets))
+    return dict(results)
+
+
 STORE_LOOKUP_CHAINS = ("pyaterochka", "dixy", "krasnoeibeloe", "chizhik")
 
 

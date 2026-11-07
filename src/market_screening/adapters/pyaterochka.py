@@ -87,6 +87,32 @@ def parse_product(p: dict, store: Store) -> Product:
     )
 
 
+def is_promo_product(p: dict) -> bool:
+    """True when the X5 product is on any kind of offer (real discount, buy-N, clearance)."""
+    prices = p.get("prices") or {}
+    regular = _f(prices.get("regular"))
+    discount = _f(prices.get("discount"))
+    if discount is not None and regular is not None and discount < regular:
+        return True
+    if prices.get("cpd_promo_price") is not None or prices.get("markdown") is not None:
+        return True
+    return bool(p.get("is_promo") or p.get("promo"))
+
+
+def _category_keys(nodes, key_field: str, acc: list[str]) -> list[str]:
+    for c in nodes or []:
+        v = c.get(key_field)
+        if v is None:  # be forgiving about the exact field name
+            for f in ("id", "code", "alias", "key"):
+                if c.get(f) is not None:
+                    v = c[f]
+                    break
+        if v is not None:
+            acc.append(str(v))
+        _category_keys(c.get("categories"), key_field, acc)
+    return acc
+
+
 class PyaterochkaAdapter(Adapter):
     chain = "pyaterochka"
 
@@ -143,7 +169,7 @@ class PyaterochkaAdapter(Adapter):
         if cm is not None:
             await cm.__aexit__(None, None, None)
 
-    async def _get_json(self, url: str) -> dict:
+    async def _get_json(self, url: str) -> dict | list:
         async with self._lock:
             for attempt in range(3):
                 await self._ensure_session()
@@ -206,6 +232,40 @@ class PyaterochkaAdapter(Adapter):
         )
         data = await self._get_json(url)
         return [parse_product(p, store) for p in data.get("products") or []]
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        # No "list discounts" endpoint in the X5 catalog v3 API: walk the category
+        # tree and keep products whose prices carry a real discount / offer.
+        code = store.store_code
+        if code == "auto":
+            code = await self.selected_store_code()
+        tree = await self._get_json(
+            f"{API}/catalog/v2/stores/{code}/categories"
+            f"?mode=store&include_restrict=true&include_subcategories=1"
+        )
+        nodes = tree if isinstance(tree, list) else (tree.get("categories") or [])
+        cat_ids = _category_keys(nodes, "id", [])
+        products: list[Product] = []
+        seen: set[str] = set()
+        for cat_id in cat_ids[:60]:
+            if len(products) >= limit:
+                break
+            data = await self._get_json(
+                f"{API}/catalog/v2/stores/{code}/categories/{cat_id}/products"
+                f"?mode=store&include_restrict=true&limit=100"
+            )
+            items = data if isinstance(data, list) else (data.get("products") or [])
+            for p in items:
+                if not is_promo_product(p):
+                    continue
+                parsed = parse_product(p, store)
+                if parsed.product_id in seen:
+                    continue
+                seen.add(parsed.product_id)
+                products.append(parsed)
+                if len(products) >= limit:
+                    break
+        return products[:limit]
 
     async def aclose(self) -> None:
         await self._reset()
