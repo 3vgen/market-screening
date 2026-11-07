@@ -171,8 +171,19 @@ class PyaterochkaAdapter(Adapter):
         return self._auto_store
 
     async def store_near(self, longitude: float, latitude: float) -> dict:
-        """The store 5ka.ru serves this point from: {sap_code, shop_address, has_delivery, ...}."""
-        return await self._get_json(f"{API}/orders/v1/orders/stores/?lon={longitude}&lat={latitude}")
+        """Nearest store serving a point: {sap_code, shop_address}.
+
+        Uses the delivery panel's store-picker, the same endpoint 5ka.ru itself
+        calls to place the pin for an address. It returns the nearest store that
+        serves the point (``has_delivery`` marks whether it delivers). The old
+        shop-locator map endpoint (``/api/stores/?bbox=``) has been removed and now
+        answers 404.
+        """
+        data = await self._get_json(f"{API}/orders/v1/orders/stores/?lon={longitude}&lat={latitude}")
+        code = data.get("sap_code")
+        if not code:
+            raise RuntimeError(f"no Pyaterochka store near ({latitude}, {longitude}): {data}")
+        return {"sap_code": str(code), "shop_address": data.get("shop_address") or ""}
 
     async def store_by_address(self, address: str) -> dict:
         geo = await self._get_json(f"{SITE}/api/maps/geocode/?geocode={urllib.parse.quote(address)}")
