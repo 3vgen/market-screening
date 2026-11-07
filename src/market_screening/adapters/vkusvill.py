@@ -119,6 +119,7 @@ def parse_promo_card(card: str, store: Store) -> Product | None:
     end = card.find("Price _last", start)
     if start == -1 or end == -1:
         return None
+    end = card.rfind("<", start, end)  # drop the half-open tag of the old-price span
     label_text = _text(card[start:end])  # e.g. "325 руб/кг"
     m = re.match(r"([\d\s.,  ]+)\s*руб\s*/\s*(\S+)", label_text)
     if not m:

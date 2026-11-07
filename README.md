@@ -33,6 +33,7 @@ Browser-based chains need the optional extra (one shared Camoufox session per ch
 | `find_store(chain, address)` | Nearest Pyaterochka / Dixy / Krasnoe&Beloe / Chizhik store code for an address |
 | `stores_near(address)` | Nearest store of every per-store chain for an address, saved back to `config.toml` |
 | `search_products(query, stores?, limit?)` | Products with price, promo/old price, price per kg/l, stock, card-only badges |
+| `promos(stores?, limit?)` | Current discounts per store, biggest first, with old price and `discount_pct` |
 | `optimize_basket(basket, max_stores, extra_store_cost)` | Exact totals: best single store vs best split, saving |
 
 The LLM does the fuzzy part (which "молоко" in each store is comparable); the server
