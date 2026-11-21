@@ -32,6 +32,11 @@ Browser-based chains need the optional extra (one shared Camoufox session per ch
 | `list_stores` | Stores from your `config.toml` |
 | `find_store(chain, address)` | Nearest Pyaterochka / Dixy / Krasnoe&Beloe / Chizhik store code for an address |
 | `stores_near(address)` | Nearest store of every per-store chain for an address, saved back to `config.toml` |
+
+Pyaterochka is reported by `find_store` / `stores_near` but never saved: its public
+lookup returns the delivery hub serving the area, not the nearest retail shop. Set the
+shop's `sap_code` in `config.toml` by hand — see [docs/pyaterochka.md](docs/pyaterochka.md)
+for details, promotions and the ServicePipe routing requirement.
 | `search_products(query, stores?, limit?)` | Products with price, promo/old price, price per kg/l, stock, card-only badges |
 | `promos(stores?, limit?)` | Current discounts per store, biggest first, with old price and `discount_pct` |
 | `optimize_basket(basket, max_stores, extra_store_cost)` | Exact totals: best single store vs best split, saving |
