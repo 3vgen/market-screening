@@ -98,6 +98,16 @@ Unofficial project, not affiliated with any retailer. Endpoints are undocumented
 may change. Intended for personal use; respect the sites' terms and keep request
 volume low.
 
+## Credits
+
+The browser-session approach used by the Pyaterochka adapter (and by the other
+browser-based chains that follow it) — warm up Camoufox on the site, capture the
+site's own `x-*` headers, then call its API from inside the page — and the
+Pyaterochka endpoints were borrowed from
+[Open-Inflation/pyaterochka_api](https://github.com/Open-Inflation/pyaterochka_api),
+MIT License, Copyright (c) 2024 Open-Inflation. The full license text is in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
 ## License
 
 MIT

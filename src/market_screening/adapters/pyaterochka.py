@@ -3,8 +3,12 @@
 5ka.ru is behind a JS challenge, so plain HTTP doesn't work. We start one
 Camoufox browser per server process, open 5ka.ru once (~20-30 s), capture the
 headers the site's own JS sends to its catalog API, and then call that API with
-`fetch()` from inside the page (~0.5 s per search). Approach borrowed from
-https://github.com/Open-Inflation/pyaterochka_api.
+`fetch()` from inside the page (~0.5 s per search).
+
+The technique (warm-up session, capturing the site's `x-*` headers, reading the
+selected store from `DeliveryPanelStore`) and the endpoints come from
+https://github.com/Open-Inflation/pyaterochka_api, MIT License,
+Copyright (c) 2024 Open-Inflation. See THIRD_PARTY_NOTICES.md.
 
 Optional dependency: `pip install market-screening[browser] && python -m camoufox fetch`.
 Prices are in rubles (strings in the API).

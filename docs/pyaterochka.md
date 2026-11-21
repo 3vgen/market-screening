@@ -14,7 +14,11 @@ Plain HTTP is not enough, so `PyaterochkaAdapter`:
 3. runs `fetch()` from inside the page against `https://5d.5ka.ru/api` afterward
    (~0.5 s per search).
 
-The approach is borrowed from [Open-Inflation/pyaterochka_api](https://github.com/Open-Inflation/pyaterochka_api).
+The approach is borrowed from [Open-Inflation/pyaterochka_api](https://github.com/Open-Inflation/pyaterochka_api)
+(MIT License, Copyright (c) 2024 Open-Inflation; full text in
+[THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)). The implementation here is
+original, but the technique and endpoints are theirs.
+
 The browser extra is required:
 
 ```bash
