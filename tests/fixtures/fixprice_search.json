@@ -1,0 +1,51 @@
+[
+ {
+  "id": 1001076,
+  "sku": "1001076",
+  "title": "Молоко ультрапастеризованное, Славянское кружево, 3,2%, 973 мл",
+  "isPromo": false,
+  "specialPrice": {
+   "price": "93",
+   "activeTo": "2999-12-31 23:59:59"
+  },
+  "price": "99.00",
+  "unitPrice": "",
+  "url": "produkty-i-napitki/p-1001076-moloko-ultrapasterizovannoe-slavyanskoe-krujevo-32-973-ml",
+  "inStock": 23,
+  "badges": [
+   {
+    "id": 8,
+    "alias": "special_price",
+    "title": "спец цена",
+    "color": "#FF1E2D"
+   }
+  ],
+  "active": true
+ },
+ {
+  "id": 1001083,
+  "sku": "1001083",
+  "title": "Молоко ультрапастеризованное, 3,2 %, 950 г",
+  "isPromo": false,
+  "specialPrice": null,
+  "price": "99.00",
+  "unitPrice": "",
+  "url": "produkty-i-napitki/molochnye-produkty/p-1001083-moloko-ultrapasterizovannoe-32--950-g",
+  "inStock": 13,
+  "badges": [],
+  "active": true
+ },
+ {
+  "id": 1011012,
+  "sku": "1011012",
+  "title": "Сливки питьевые стерилизованные, Домик в деревне, 10%, 200 г",
+  "isPromo": false,
+  "specialPrice": null,
+  "price": "69.00",
+  "unitPrice": "",
+  "url": "produkty-i-napitki/p-1011012-slivki-pitevye-sterilizovannye-domik-v-derevne-10-200-g",
+  "inStock": 16,
+  "badges": [],
+  "active": true
+ }
+]

@@ -71,3 +71,23 @@ class MagnitAdapter(Adapter):
         )
         resp.raise_for_status()
         return [parse_item(it, store) for it in resp.json().get("items", [])]
+
+    async def _promos(self, store: Store, limit: int) -> list[Product]:
+        # goods/search has no promo filter, but it sorts by discount: the most
+        # discounted items come first, and `promotion.oldPrice` is the real
+        # pre-discount price (kopecks). Empty term pages the whole catalog.
+        body = {
+            "term": "",
+            "pagination": {"limit": max(limit, 50), "offset": 0},
+            "sort": {"order": "desc", "type": "discount"},
+            "includeAdultGoods": True,
+            "storeCode": store.store_code,
+            "storeType": "1",
+            "catalogType": "1",
+        }
+        resp = await self._client.post(
+            SEARCH_URL, json=body, headers={"Origin": BASE, "Referer": f"{BASE}/"}
+        )
+        resp.raise_for_status()
+        products = [parse_item(it, store) for it in resp.json().get("items", [])]
+        return [p for p in products if p.is_promo][:limit]

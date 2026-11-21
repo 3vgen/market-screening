@@ -1,0 +1,22 @@
+[
+  {"plu": 3255206, "name": "Молоко Домик в деревне пастеризованное 2.5% БЗМЖ 930мл", "uom": "шт",
+   "prices": {"regular": "94.99", "discount": null, "cpd_promo_price": "86.99", "markdown": null},
+   "labels": [{"label": "% от 2 шт"}], "package_quantity": "930 мл", "price_unit_label": null,
+   "stock_limit": "186.00", "is_available": true},
+  {"plu": 4001, "name": "Колбаса Клинский Докторская вареная 400г", "uom": "шт",
+   "prices": {"regular": "249.99", "discount": "219.99", "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": "400 г", "price_unit_label": null,
+   "stock_limit": "12.00", "is_available": true},
+  {"plu": 809, "name": "Бананы Global Village", "uom": "кг",
+   "prices": {"regular": "174.99", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": "1 кг", "price_unit_label": "кг",
+   "stock_limit": "68.30", "is_available": true},
+  {"plu": 5002, "name": "Сыр Красная цена Российский 45% БЗМЖ", "uom": "кг",
+   "prices": {"regular": "58.99", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": "100 г", "price_unit_label": "100 г",
+   "stock_limit": "3.20", "is_available": true},
+  {"plu": 6003, "name": "Сметана Ростагроэкспорт 20% БЗМЖ 320г", "uom": "шт",
+   "prices": {"regular": "129.99", "discount": null, "cpd_promo_price": null, "markdown": null},
+   "labels": null, "package_quantity": "320 мл", "price_unit_label": null,
+   "stock_limit": "0.00", "is_available": false}
+]
